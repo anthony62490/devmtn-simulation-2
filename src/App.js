@@ -1,9 +1,8 @@
 //LIBRARIES
 import React, { Component } from 'react';
-import { HashRouter, Link } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
-//RESOURCES AND STYLING
-import logo from './logo.svg';
+//RESOURCES AND STYLING 
 import './App.css';
 
 //COMPONENTS
@@ -16,8 +15,6 @@ class App extends Component {
       <HashRouter>
         <div className="App">
           <Header/>
-          <Link to='/'><p>Dashboard</p></Link>
-          <Link to='/wizard'><p>Wizard</p></Link>
           { routes }
         </div>
       </HashRouter>

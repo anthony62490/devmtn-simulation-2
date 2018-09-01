@@ -1,0 +1,20 @@
+.house-box {
+  border: 2px solid green;
+  padding: 20px;
+}
+
+.house-box>img {
+  float: left;
+}
+
+.house-wrap-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+p {
+  margin: 50px;
+  margin-top: 70px;
+}

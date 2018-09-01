@@ -3,17 +3,17 @@ const { json } = require('body-parser');
 const massive = require('massive');
 require('dotenv').config();
 
-const port = process.env.PORT;
+const port = process.env.SERVER_PORT || 3001;
 
-const {getData} = require('./controller');
+const {getHouses, newHouse, deleteHouse} = require('./controller');
 
 const app = express();
 app.use(json());
+// app.use('/resources', express.static('public'))
 
-app.get('/api/test', getData);
-// app.post('');
-// app.put('');
-// app.delete('');
+app.get('/api/houses', getHouses);
+app.post('/api/house', newHouse);
+app.delete('/api/house/:id', deleteHouse);
 
 massive(process.env.CONNECTION_STRING)
   .then(db => app.set("db", db))
