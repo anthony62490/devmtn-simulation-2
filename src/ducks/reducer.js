@@ -2,10 +2,8 @@ import axios from 'axios';
 
 const GET_HOUSES = 'GET_HOUSES';
 const DELETE_HOUSE = 'DELETE_HOUSE';
-const EDIT_NAME_INPUT = 'EDIT_NAME_INPUT';
-const EDIT_CITY_INPUT = 'EDIT_CITY_INPUT';
-const EDIT_STATE_INPUT = 'EDIT_STATE_INPUT';
-const EDIT_ZIP_INPUT = 'EDIT_ZIP_INPUT';
+const GET_USER_INPUT = 'GET_USER_INPUT';
+
 
 export function getHouses() //example 
 {
@@ -23,42 +21,18 @@ export function deleteHouse(id)
   };
 }
 
-export function editNameInput(input)
+export function sendUserInputToState(inputObj)
 {
   return {
-    type: EDIT_NAME_INPUT,
-    payload: input
-  };
-}
-
-export function editCityInput(input)
-{
-  return {
-    type: EDIT_CITY_INPUT,
-    payload: input
-  };
-}
-
-export function editStateInput(input)
-{
-  return {
-    type: EDIT_STATE_INPUT,
-    payload: input
-  };
-}
-
-export function editZipInput(input)
-{
-  return {
-    type: EDIT_ZIP_INPUT,
-    payload: input
-  };
+    type: GET_USER_INPUT,
+    payload: inputObj
+  }
 }
 
 const initialState =
 {
-  houses: [],
-  wizardInput: {}
+  houses: [], //holds the list of completed properties
+  wizardInput: {} //temporary holding area for partially completed input
 };
 
 export default function myReducer(state = initialState, action)
@@ -77,25 +51,11 @@ export default function myReducer(state = initialState, action)
         ...state,
         houses: action.payload.data
       };
-    case EDIT_NAME_INPUT:
+    case GET_USER_INPUT:
+      console.log('Got User Input');
       return {
         ...state,
-        userNameInput: action.payload
-      };
-    case EDIT_CITY_INPUT:
-      return {
-        ...state,
-        userCityInput: action.payload
-      };
-    case EDIT_STATE_INPUT:
-      return {
-        ...state,
-        userStateInput: action.payload
-      };
-    case EDIT_ZIP_INPUT:
-      return {
-        ...state,
-        userZipInput: action.payload
+        wizardInput: action.payload
       };
     default:
       return state;

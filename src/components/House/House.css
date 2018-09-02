@@ -5,6 +5,8 @@
 
 .house-box>img {
   float: left;
+  height: 300px;
+  width: auto;
 }
 
 .house-wrap-box {

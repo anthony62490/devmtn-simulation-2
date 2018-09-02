@@ -5,7 +5,7 @@ function House(props)
 {
   return (
     <div className="house-box">
-      <img src="https://i.imgur.com/2YWW1ry.jpg"/>
+      <img src={props.img} alt=""/>
       <div className="house-wrap-box">
         <p>House {props.id}:</p>
         <p>address: {props.address}</p>

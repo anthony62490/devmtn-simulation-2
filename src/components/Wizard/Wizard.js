@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
+
+import {sendUserInputToState} from '../../ducks/reducer';
 
 class Wizard extends Component 
 {
@@ -30,25 +33,44 @@ class Wizard extends Component
   handleRent = (e) => {this.setState({userRentInput: e.target.value})};
   handleButton = () => {console.log(this.state)};
 
+  handleStateButton = () => {
+    let submitForm = {
+      name:this.state.userNameInput,
+      address:this.state.userAddressInput,
+      city:this.state.userCityInput,
+      state:this.state.userStateInput,
+      zip:this.state.userZipInput,
+      image:this.state.userImageInput,
+      mortgage:this.state.userMortgageInput,
+      rent:this.state.userRentInput}
+    this.props.sendUserInputToState(submitForm);
+  }
+
+  handleSubmitButton()
+  {
+    let submitForm = {
+      name:this.state.userNameInput,
+      address:this.state.userAddressInput,
+      city:this.state.userCityInput,
+      state:this.state.userStateInput,
+      zip:this.state.userZipInput,
+      image:this.state.userImageInput,
+      mortgage:this.state.userMortgageInput,
+      rent:this.state.userRentInput}
+
+    axios.post('/api/house', submitForm)
+  }
+
   render() 
   {
     return (
       <div>
         <div>
-          <table>
-            <tbody>
-              <tr><td>Name</td><td><input onChange={e => this.handleName(e)} value={this.state.userNameInput}/></td></tr>
-              <tr><td>Address</td><td><input onChange={e => this.handleAddress(e)} value={this.state.userAddressInput}/></td></tr>
-              <tr><td>City</td><td><input onChange={e => this.handleCity(e)} value={this.state.userCityInput}/></td></tr>
-              <tr><td>State</td><td><input onChange={e => this.handleState(e)} value={this.state.userStateInput}/></td></tr>
-              <tr><td>Zip</td><td><input onChange={e => this.handleZip(e)} value={this.state.userZipInput}/></td></tr>
-              <tr><td>Image</td><td><input onChange={e => this.handleImage(e)} value={this.state.userImageInput}/></td></tr>
-              <tr><td>Mortgage</td><td><input onChange={e => this.handleMortgage(e)} value={this.state.userMortgageInput}/></td></tr>
-              <tr><td>Rent</td><td><input onChange={e => this.handleRent(e)} value={this.state.userRentInput}/></td></tr>
-            </tbody>
-          </table>
+
         </div>
-        <button onClick={() => this.handleButton()}>LOG! (from Blammo)</button>
+        <button onClick={() => this.handleButton()}>Check State</button>
+        <button onClick={() => this.handleStateButton()}>Send to State</button>
+        <button onClick={() => this.handleSubmitButton()}>Submit</button>
         <Link to='/'><p>Cancel</p></Link>
       </div>
     );//return
@@ -57,4 +79,4 @@ class Wizard extends Component
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps)(Wizard);
+export default connect(mapStateToProps, {sendUserInputToState})(Wizard);

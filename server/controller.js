@@ -11,9 +11,10 @@ function getHouses(req, res, next) //get
 
 function newHouse(req, res, next) //put
 {
-  const {name, address, city, state, zip, img, mortgage, rent} = req.body;
+  console.log("REQUEST RECEIVED", req.body);
+  const {name, address, city, state, zip, image, mortgage, rent} = req.body;
   const dbInst = req.app.get('db');
-  dbInst.new_house([name, address, city, state, zip, img, mortgage, rent])
+  dbInst.new_house([name, address, city, state, zip, image, mortgage, rent])
     .then(response => {
       console.log("Response 2 = ", response)
       return res.status(200).send(response)
